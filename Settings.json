@@ -1,0 +1,126 @@
+[
+  {
+    "id": "disable_homebrew",
+    "name": "NO HOMEBREW",
+    "enabled": false,
+    "description": "Disables everything not from Paizo. Homebrew content is colored green in this menu.",
+    "content": null
+  },
+  {
+    "id": "archetypes",
+    "name": "Archetypes",
+    "enabled": true,
+    "description": null,
+    "content": [
+      {
+        "id": "flagellant",
+        "name": "Flagellant",
+        "enabled": true,
+        "description": "More casting-oriented cleric who powers up their spells with their own blood.",
+        "homebrew": true
+      }
+    ]
+  },
+  {
+    "id": "a_discoveries",
+    "name": "Arcane Discoveries",
+    "enabled": true,
+    "description": null,
+    "content": [
+      {
+        "id": "alch_affinity",
+        "name": "Alchemical Affinity",
+        "enabled": true,
+        "description": "Higher CL when casting spells that are both in wizard and alchemist lists.",
+        "homebrew": false
+      },
+      {
+        "id": "forest_blessing",
+        "name": "Forest Blessing",
+        "enabled": true,
+        "description": "Higher CL when casting spells that are both in wizard and druid lists.",
+        "homebrew": false
+      },
+      {
+        "id": "suck_it_bft",
+        "name": "Idealize",
+        "enabled": true,
+        "description": "Transmutation spells like Bull's Strength grant a higher bonus.",
+        "homebrew": false
+      },
+      {
+        "id": "muscle_wizard",
+        "name": "Knowledge Is Power",
+        "enabled": true,
+        "description": "Adds Intelligence modifier to CMB and CMD.",
+        "homebrew": false
+      },
+      {
+        "id": "opp_research",
+        "name": "Opposition Research",
+        "enabled": true,
+        "description": "Cancels the disadvantages of opposition schools.",
+        "homebrew": false
+      },
+      {
+        "id": "staff_wand",
+        "name": "Staff-like Wand",
+        "enabled": true,
+        "description": "Use the wizard's caster level and DC modifiers when using wands.",
+        "homebrew": false
+      }
+    ]
+  },
+  {
+    "id": "feats",
+    "name": "Normal Feats",
+    "enabled": true,
+    "description": null,
+    "content": [
+      {
+        "id": "shrewd_tactician",
+        "name": "Shrewd Tactician",
+        "enabled": true,
+        "description": "Denies enemies' flanking bonus to AB.",
+        "homebrew": false
+      }
+    ]
+  },
+  {
+    "id": "magus_arcana",
+    "name": "Magus Arcana",
+    "enabled": true,
+    "description": null,
+    "content": [
+      {
+        "id": "law_circle",
+        "name": "Circle Of Order",
+        "enabled": true,
+        "description": "Very short-lived but large dodge bonus against attacks made by chaotic enemies.",
+        "homebrew": false
+      }
+    ]
+  },
+  {
+    "id": "mythic",
+    "name": "Mythic",
+    "enabled": true,
+    "description": null,
+    "content": [
+      {
+        "id": "warrior_priest",
+        "name": "Warrior Priest Mythic",
+        "enabled": true,
+        "description": "Initiative and concentration bonus for divine casters.",
+        "homebrew": false
+      },
+      {
+        "id": "mythic_poison",
+        "name": "Mythic Poison",
+        "enabled": true,
+        "description": "Ignore poison immunity of living creatures.",
+        "homebrew": true
+      }
+    ]
+  }
+]

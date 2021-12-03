@@ -1,0 +1,12 @@
+{
+  "Id": "MagicTime",
+  "DisplayName": "Magic Time!",
+  "Author": "Starion (aka kreaddy)",
+  "Version": "1.0",
+  "ManagerVersion": "0.23.0.0",
+  "GameVersion": "1.1.3f",
+  "Requirements": [],
+  "AssemblyName": "MagicTime.dll",
+  "HomePage": "",
+  "EntryMethod": "MagicTime.Main.Load"
+}

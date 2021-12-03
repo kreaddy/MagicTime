@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31605.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicTime", "MagicTime.csproj", "{DDFAF76E-2A49-4A05-9198-7A80613B1794}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7837E8B-53D5-4019-8863-AB27F304ADD7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDFAF76E-2A49-4A05-9198-7A80613B1794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDFAF76E-2A49-4A05-9198-7A80613B1794}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDFAF76E-2A49-4A05-9198-7A80613B1794}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDFAF76E-2A49-4A05-9198-7A80613B1794}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51AEFF74-276E-4AA7-A6C2-1D7FEE3B5AF2}
+	EndGlobalSection
+EndGlobal
