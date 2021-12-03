@@ -228,7 +228,6 @@ namespace MagicTime
                                 UI.Toggle(setting.name.bold(), ref setting.enabled);
                             }
                             UI.Label(setting.description);
-                            UI.Space(10);
                         }
                     }
                 }
