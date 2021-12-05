@@ -115,10 +115,13 @@
     <Compile Include="Content\ArcaneDiscoveries\AlchemicalAffinity.cs" />
     <Compile Include="Content\ArcaneDiscoveries\Idealize.cs" />
     <Compile Include="Content\ArcaneDiscoveries\KnowledgeIsPower.cs" />
+    <Compile Include="Content\ArcaneDiscoveries\MetamagicInsight.cs" />
     <Compile Include="Content\ArcaneDiscoveries\OppositionResearch.cs" />
     <Compile Include="Content\ArcaneDiscoveries\StaffLikeWand.cs" />
     <Compile Include="Content\Archetypes\Flagellant\Flagellant.cs" />
     <Compile Include="Content\Archetypes\Flagellant\MortifiedCastingDamage.cs" />
+    <Compile Include="Content\Archetypes\Warsighted.cs" />
+    <Compile Include="Content\Feats\AcadamaeGraduate.cs" />
     <Compile Include="Content\Feats\ShrewdTactician\ShrewdTactician.cs" />
     <Compile Include="Content\Feats\ShrewdTactician\TacticianNoFlankBonus.cs" />
     <Compile Include="Content\MagusArcana\CircleOfOrder.cs" />
@@ -130,7 +133,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\AssetLoader.cs" />
     <Compile Include="Utilities\Attributes.cs" />
-    <Compile Include="Utilities\BlueprintsDatabase.cs" />
+    <Compile Include="Utilities\DB.cs" />
     <Compile Include="Utilities\DescriptionTools.cs" />
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Utilities\Helpers.cs" />
@@ -144,18 +147,23 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="Settings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <EmbeddedResource Include="DefaultSettings.json" />
+    <EmbeddedResource Include="Utilities\BlueprintDatabase.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icons\ad_forest_blessing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\ad_metamagic_insight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Icons\ad_stafflike_wand.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Icons\fl_mortified.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\f_graduate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -86,6 +86,12 @@ namespace MagicTime.Utilities
                 result.FromSpellbook = from_spellbook;
                 result.m_Spellbooks = new BlueprintSpellbookReference[] { spellbook.ToReference<BlueprintSpellbookReference>() };
             }
+            else
+            {
+                result.FromSpellbook = false;
+                result.CheckAbilityType = true;
+                result.Type = AbilityType.Spell;
+            }
             result.AfterCast = after_cast;
             bp.CreateComponents(result);
         }

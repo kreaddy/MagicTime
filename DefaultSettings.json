@@ -18,6 +18,13 @@
         "enabled": true,
         "description": "More casting-oriented cleric who powers up their spells with their own blood.",
         "homebrew": true
+      },
+      {
+        "id": "warsighted",
+        "name": "Warsighted",
+        "enabled": true,
+        "description": "An oracle who trades revelations for combat feats.",
+        "homebrew": false
       }
     ]
   },
@@ -68,6 +75,13 @@
         "enabled": true,
         "description": "Use the wizard's caster level and DC modifiers when using wands.",
         "homebrew": false
+      },
+      {
+        "id": "metamagic_insight",
+        "name": "Metamagic Insight",
+        "enabled": true,
+        "description": "Use a known metamagic feat for free twice per day.",
+        "homebrew": true
       }
     ]
   },
@@ -82,6 +96,13 @@
         "name": "Shrewd Tactician",
         "enabled": true,
         "description": "Denies enemies' flanking bonus to AB.",
+        "homebrew": false
+      },
+      {
+        "id": "acadamae",
+        "name": "Acadamae Graduate",
+        "enabled": true,
+        "description": "Summoning spells only take a standard action to cast but have a chance to cause fatigue for a while.",
         "homebrew": false
       }
     ]

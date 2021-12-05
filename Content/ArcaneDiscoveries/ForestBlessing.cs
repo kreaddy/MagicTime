@@ -5,7 +5,6 @@ using Kingmaker.PubSubSystem;
 using Kingmaker.RuleSystem.Rules.Abilities;
 using Kingmaker.UnitLogic;
 using MagicTime.Utilities;
-using static MagicTime.Utilities.BlueprintsDatabase;
 
 namespace MagicTime.ArcaneDiscoveries
 {
@@ -20,7 +19,7 @@ namespace MagicTime.ArcaneDiscoveries
                 "Forest's Blessing",
                 "You cast any spells that appear on both the wizard and druid spell lists at +1 caster level and with +1 to the save DC.",
                 "ad_forest_blessing");
-            fblessing_feature.CreateClassLevelRestriction(Wizard, 5);
+            fblessing_feature.CreateClassLevelRestriction(DB.GetClass("Wizard Class"), 5);
             fblessing_feature.CreateGenericComponent<Mechanics.ForestBlessingLogic>();
             Main.AddNewDiscovery(fblessing_feature);
         }
@@ -37,7 +36,7 @@ namespace MagicTime.ArcaneDiscoveries.Mechanics
         public void OnEventAboutToTrigger(RuleCalculateAbilityParams evt)
         {
             if (Owner == null || evt.AbilityData == null) { return; }
-            if (evt.AbilityData.IsInSpellList(WizardList) && evt.AbilityData.IsInSpellList(DruidList))
+            if (evt.AbilityData.IsInSpellList(DB.GetSpellList("Wizard Spells")) && evt.AbilityData.IsInSpellList(DB.GetSpellList("Druid Spells")))
             {
                 evt.AddBonusCasterLevel(1);
                 evt.AddBonusDC(1);

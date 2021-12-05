@@ -14,8 +14,8 @@ namespace MagicTime.Feats
                 "Shrewd Tactician",
                 "Your dealings with pirates, thieves, and assassins have taught you to be exceedingly careful.\nBenefit: Opponents do not gain " +
                 "a +2 bonus on attack rolls for flanking you, although they can still sneak attack you.", null, null, false);
-            shrewd_tactician.CreateFeatureRestriction(BlueprintsDatabase.Alertness);
-            shrewd_tactician.CreateFeatureRestriction(BlueprintsDatabase.CombatReflexes);
+            shrewd_tactician.CreateFeatureRestriction(DB.GetFeature("Alertness"));
+            shrewd_tactician.CreateFeatureRestriction(DB.GetFeature("Combat Reflexes"));
             shrewd_tactician.CreateGenericComponent<Mechanics.TacticianNoFlankBonus>();
             shrewd_tactician.Groups = new FeatureGroup[] { FeatureGroup.Feat, FeatureGroup.CombatFeat };
             Helpers.AddNewFeat(shrewd_tactician);

@@ -71,6 +71,19 @@ namespace MagicTime.Utilities
             return result;
         }
 
+        public static BlueprintAbilityResource CreateAbilityResourceFixed(string asset_name, int base_value)
+        {
+            var result = CreateBlueprint<BlueprintAbilityResource>(asset_name, bp =>
+            {
+                bp.m_MaxAmount = new BlueprintAbilityResource.Amount
+                {
+                    BaseValue = base_value,
+                };
+                bp.m_Max = base_value;
+            });
+            return result;
+        }
+
         public static BlueprintActivatableAbility CreateActivatableAbility(string asset_name, string name, string description, string icon,
             BlueprintBuff buff, bool def_on = false, bool end_after_combat = false)
         {
@@ -94,7 +107,7 @@ namespace MagicTime.Utilities
             {
                 bp.m_DisplayName = CreateString($"{asset_name}.Name", name);
                 bp.m_Description = CreateString($"{asset_name}.Description", DescriptionTools.TagEncyclopediaEntries(description));
-                if (icon_name != null) { bp.m_Icon = AssetLoader.LoadInternal("Icons", icon_name); }
+                if (icon_name != null) { AssetLoader.LoadInternal("Icons", icon_name); }
                 if (icon != null) { bp.m_Icon = icon; }
                 bp.IsClassFeature = class_feature;
                 bp.Ranks = 1;
@@ -130,19 +143,20 @@ namespace MagicTime.Utilities
 
         public static void AddNewFeat(BlueprintFeature feat)
         {
-            var selection = BlueprintsDatabase.FeatSelection;
-            var extra = BlueprintsDatabase.MythicFeatSelection;
+            var selection = DB.GetSelection("Feat Selection");
             var list = selection.m_AllFeatures.ToList();
             list.Add(feat.ToReference<BlueprintFeatureReference>());
             selection.m_AllFeatures = list.ToArray();
-            list = extra.m_AllFeatures.ToList();
-            extra.m_AllFeatures = list.ToArray();
+            selection = DB.GetSelection("Mythic Feat Extra Feat Selection");
+            list = selection.m_AllFeatures.ToList();
+            list.Add(feat.ToReference<BlueprintFeatureReference>());
+            selection.m_AllFeatures = list.ToArray();
         }
 
         public static void AddNewWizardFeat(BlueprintFeature feat)
         {
             AddNewFeat(feat);
-            var selection = BlueprintsDatabase.WizardFeatSelection;
+            var selection = DB.GetSelection("Wizard Feat Selection");
             var list = selection.m_AllFeatures.ToList();
             list.Add(feat.ToReference<BlueprintFeatureReference>());
             selection.m_AllFeatures = list.ToArray();
@@ -150,18 +164,19 @@ namespace MagicTime.Utilities
 
         public static void AddNewMythicAbility(BlueprintFeature fact)
         {
-            var selection = BlueprintsDatabase.MythicAbilitySelection;
-            var extra = BlueprintsDatabase.MythicExtraAbility;
+            var selection = DB.GetSelection("Mythic Ability Selection");
             var list = selection.m_AllFeatures.ToList();
             list.Add(fact.ToReference<BlueprintFeatureReference>());
             selection.m_AllFeatures = list.ToArray();
-            list = extra.m_AllFeatures.ToList();
-            extra.m_AllFeatures = list.ToArray();
+            selection = DB.GetSelection("Extra Mythic Ability Selection");
+            list = selection.m_AllFeatures.ToList();
+            list.Add(fact.ToReference<BlueprintFeatureReference>());
+            selection.m_AllFeatures = list.ToArray();
         }
 
         public static void AddNewMythicFeat(BlueprintFeature fact)
         {
-            var selection = BlueprintsDatabase.MythicFeatSelection;
+            var selection = DB.GetSelection("Mythic Feat Selection");
             var list = selection.m_AllFeatures.ToList();
             list.Add(fact.ToReference<BlueprintFeatureReference>());
             selection.m_AllFeatures = list.ToArray();
@@ -169,7 +184,7 @@ namespace MagicTime.Utilities
 
         public static void AddNewCombatTrick(BlueprintFeature feat)
         {
-            var selection = BlueprintsDatabase.CombatTrick;
+            var selection = DB.GetSelection("Combat Trick");
             var list = selection.m_AllFeatures.ToList();
             list.Add(feat.ToReference<BlueprintFeatureReference>());
             selection.m_AllFeatures = list.ToArray();
@@ -177,15 +192,15 @@ namespace MagicTime.Utilities
 
         public static void AddNewMagusArcana(BlueprintFeature fact)
         {
-            var selection = BlueprintsDatabase.MagusArcanaSelection;
+            var selection = DB.GetSelection("Magus Arcana Selection");
             var list = selection.m_AllFeatures.ToList();
             list.Add(fact.ToReference<BlueprintFeatureReference>());
             selection.m_AllFeatures = list.ToArray();
-            selection = BlueprintsDatabase.ESArcanaSelection;
+            selection = DB.GetSelection("Eldritch Scion Arcana Selection");
             list = selection.m_AllFeatures.ToList();
             list.Add(fact.ToReference<BlueprintFeatureReference>());
             selection.m_AllFeatures = list.ToArray();
-            selection = BlueprintsDatabase.HexcrafterArcanaSelection;
+            selection = DB.GetSelection("Hexcrafter Arcana Selection");
             list = selection.m_AllFeatures.ToList();
             list.Add(fact.ToReference<BlueprintFeatureReference>());
             selection.m_AllFeatures = list.ToArray();
@@ -193,7 +208,7 @@ namespace MagicTime.Utilities
 
         public static void AddNewFighterFeat(BlueprintFeature feat)
         {
-            var selection = BlueprintsDatabase.FighterFeatSelection;
+            var selection = DB.GetSelection("Fighter Feat Selection");
             var list = selection.m_AllFeatures.ToList();
             list.Add(feat.ToReference<BlueprintFeatureReference>());
             selection.m_AllFeatures = list.ToArray();

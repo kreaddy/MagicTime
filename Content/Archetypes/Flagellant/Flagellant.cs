@@ -9,7 +9,6 @@ using Kingmaker.UnitLogic.Mechanics.Components;
 using Kingmaker.Utility;
 using MagicTime.Utilities;
 using System.Linq;
-using static MagicTime.Utilities.BlueprintsDatabase;
 
 namespace MagicTime.Archetypes
 {
@@ -54,12 +53,12 @@ namespace MagicTime.Archetypes
             CreateGreaterMortifiedSpellcasting();
 
             flagellant_archetype.RemoveFeatures = new LevelEntry[] {
-                Helpers.CreateLevelEntry(1, ClericProficiencies)
+                Helpers.CreateLevelEntry(1, DB.GetFeature("Cleric Proficiencies"))
             };
 
             flagellant_archetype.AddFeatures = new LevelEntry[] {
                 Helpers.CreateLevelEntry(1, proficiencies, focused_feature, mortified_casting_feature),
-                Helpers.CreateLevelEntry(2, Diehard),
+                Helpers.CreateLevelEntry(2, DB.GetFeature("Diehard")),
                 Helpers.CreateLevelEntry(7, deadened_flesh),
                 Helpers.CreateLevelEntry(10, deadened_flesh),
                 Helpers.CreateLevelEntry(11, g_mortified_casting_feature),
@@ -73,40 +72,41 @@ namespace MagicTime.Archetypes
                 Helpers.CreateUIGroup(deadened_flesh),
                 Helpers.CreateUIGroup(mortified_casting_feature, g_mortified_casting_feature)
             };
-            Cleric.Progression.UIGroups = Cleric.Progression.UIGroups.Concat(newUIGroups).ToArray();
+            DB.GetClass("Cleric Class").Progression.UIGroups = DB.GetClass("Cleric Class").Progression.UIGroups.Concat(newUIGroups).ToArray();
 
-            Cleric.AddArchetype(flagellant_archetype);
+            DB.GetClass("Cleric Class").AddArchetype(flagellant_archetype);
         }
 
         public static void CreateFocused()
         {
             focused_feature = Helpers.CreateFeature("FLFocused", "Focused", "A flagellant gains 2 additional skill points per level.",
-                null, HumanSkilled.Icon);
+                null, DB.GetFeature("Human Skilled").Icon);
         }
 
         public static void CreateProficiencies()
         {
             proficiencies = Helpers.CreateFeature("FLProficiencies", "Flagellant Proficiencies", "Flagellants are proficient with light armor and " +
                 "shields and with the following weapons: club, dagger, heavy mace, light mace, quarterstaff and light crossbows.",
-                null, ClericProficiencies.m_Icon);
-            proficiencies.CreateAddFacts(ProficiencyClub, ProficiencyDagger, ProficiencyLightMace, ProficiencyHeavyMace, ProficiencyQuarterstaff,
-                ProficiencyLightCrossbow, ProficiencyLightArmor, ProficiencyShield);
+                null, DB.GetFeature("Cleric Proficiencies").m_Icon);
+            proficiencies.CreateAddFacts(DB.GetFeature("Prof Club"), DB.GetFeature("Prof Dagger"), DB.GetFeature("Prof Light Mace"),
+                DB.GetFeature("Prof Heavy Mace"), DB.GetFeature("Prof Staff"), DB.GetFeature("Prof Light Xbow"), DB.GetFeature("Prof Shield"),
+                DB.GetFeature("Prof Light Armor"));
         }
 
         public static void CreateMortifiedSpellcasting()
         {
             mortified_casting_buff_dc = Helpers.CreateBuff("FLMortifiedBuffDC", "Mortified Spellcasting",
                 "The next spell you cast this round will have its DC increased by 1 but you will take damage equal to its level upon casting it.",
-                "fl_mortified", CorruptedBloodBuff.FxOnStart, BlueprintBuff.Flags.RemoveOnRest);
-            mortified_casting_buff_dc.CreateAbilityUseTrigger(true, ClericSpellbook, true, new ContextActionRemoveSelf());
-            mortified_casting_buff_dc.CreateIncreaseSpellbookDC(1, ClericSpellbook.ToReference<BlueprintSpellbookReference>());
+                "fl_mortified", DB.GetBuff("Corrupted Blood Buff").FxOnStart, BlueprintBuff.Flags.RemoveOnRest);
+            mortified_casting_buff_dc.CreateAbilityUseTrigger(true, DB.GetSpellbook("Cleric Spellbook"), true, new ContextActionRemoveSelf());
+            mortified_casting_buff_dc.CreateIncreaseSpellbookDC(1, DB.GetSpellbook("Cleric Spellbook").ToReference<BlueprintSpellbookReference>());
             mortified_casting_buff_dc.CreateGenericComponent<Mechanics.MortifiedCastingDamage>();
 
             mortified_casting_buff_lv = Helpers.CreateBuff("FLMortifiedBuffLv", "Mortified Spellcasting",
                 "Your caster level is increased by 1 for the next spell you cast but you will take damage equal to its spell level upon casting it.",
-                "fl_mortified", CorruptedBloodBuff.FxOnStart, BlueprintBuff.Flags.RemoveOnRest);
-            mortified_casting_buff_lv.CreateAbilityUseTrigger(true, ClericSpellbook, true, new ContextActionRemoveSelf());
-            mortified_casting_buff_lv.CreateIncreaseSpellbookCL(1, ClericSpellbook.ToReference<BlueprintSpellbookReference>());
+                "fl_mortified", DB.GetBuff("Corrupted Blood Buff").FxOnStart, BlueprintBuff.Flags.RemoveOnRest);
+            mortified_casting_buff_lv.CreateAbilityUseTrigger(true, DB.GetSpellbook("Cleric Spellbook"), true, new ContextActionRemoveSelf());
+            mortified_casting_buff_lv.CreateIncreaseSpellbookCL(1, DB.GetSpellbook("Cleric Spellbook").ToReference<BlueprintSpellbookReference>());
             mortified_casting_buff_lv.CreateGenericComponent<Mechanics.MortifiedCastingDamage>();
 
             mortified_casting_ab_dc = Helpers.CreateAbility("FLMortifiedAbDC", "Mortified Casting — Increase DC",
@@ -141,7 +141,7 @@ namespace MagicTime.Archetypes
         {
             deadened_flesh = Helpers.CreateFeature("FLDeadenedFlesh", "Deadened Flesh", "At 7th level, the flagellant becomes so used to physical " +
                 "injury that she gains DR 1/—. At 10th level, and every 3 cleric levels thereafter (13th, 16th, and 19th level), this damage " +
-                "reduction rises by 1 point.", null, BarbarianDR.Icon);
+                "reduction rises by 1 point.", null, DB.GetFeature("Barbarian DR").Icon);
             deadened_flesh.Ranks = 5;
             deadened_flesh.ReapplyOnLevelUp = true;
             deadened_flesh.CreateContextRankConfig(ContextRankBaseValueType.FeatureListRanks, ContextRankProgression.AsIs, 1);
@@ -157,17 +157,17 @@ namespace MagicTime.Archetypes
             g_mortified_casting_buff_dc = Helpers.CreateBuff("FLGMortifiedBuffDC", "Greater Mortified Spellcasting",
                 "The next spell you cast this round will have its DC increased by 2 but you will take damage equal to twice its level upon " +
                 "casting it.",
-                "fl_mortified", CorruptedBloodBuff.FxOnStart, BlueprintBuff.Flags.RemoveOnRest);
-            g_mortified_casting_buff_dc.CreateAbilityUseTrigger(true, ClericSpellbook, true, new ContextActionRemoveSelf());
-            g_mortified_casting_buff_dc.CreateIncreaseSpellbookDC(2, ClericSpellbook.ToReference<BlueprintSpellbookReference>());
+                "fl_mortified", DB.GetBuff("Corrupted Blood Buff").FxOnStart, BlueprintBuff.Flags.RemoveOnRest);
+            g_mortified_casting_buff_dc.CreateAbilityUseTrigger(true, DB.GetSpellbook("Cleric Spellbook"), true, new ContextActionRemoveSelf());
+            g_mortified_casting_buff_dc.CreateIncreaseSpellbookDC(2, DB.GetSpellbook("Cleric Spellbook").ToReference<BlueprintSpellbookReference>());
             g_mortified_casting_buff_dc.CreateGenericComponent<Mechanics.MortifiedCastingDamage>();
 
             g_mortified_casting_buff_lv = Helpers.CreateBuff("FLGMortifiedBuffLv", "Greater Mortified Spellcasting",
                 "Your caster level is increased by 2 for the next spell you cast but you will take damage equal to twice its spell level upon " +
                 "casting it.",
-                "fl_mortified", CorruptedBloodBuff.FxOnStart, BlueprintBuff.Flags.RemoveOnRest);
-            g_mortified_casting_buff_lv.CreateAbilityUseTrigger(true, ClericSpellbook, true, new ContextActionRemoveSelf());
-            g_mortified_casting_buff_lv.CreateIncreaseSpellbookCL(2, ClericSpellbook.ToReference<BlueprintSpellbookReference>());
+                "fl_mortified", DB.GetBuff("Corrupted Blood Buff").FxOnStart, BlueprintBuff.Flags.RemoveOnRest);
+            g_mortified_casting_buff_lv.CreateAbilityUseTrigger(true, DB.GetSpellbook("Cleric Spellbook"), true, new ContextActionRemoveSelf());
+            g_mortified_casting_buff_lv.CreateIncreaseSpellbookCL(2, DB.GetSpellbook("Cleric Spellbook").ToReference<BlueprintSpellbookReference>());
             g_mortified_casting_buff_lv.CreateGenericComponent<Mechanics.MortifiedCastingDamage>();
 
             g_mortified_casting_ab_dc = Helpers.CreateAbility("FLGMortifiedAbDC", "Greater Mortified Casting — Increase DC",

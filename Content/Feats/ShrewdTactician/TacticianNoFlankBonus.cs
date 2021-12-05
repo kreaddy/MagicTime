@@ -26,7 +26,7 @@ namespace MagicTime.Feats.Mechanics
             {
                 foreach (UnitEntityData unitEntityData in Owner.CombatState.EngagedBy)
                 {
-                    flag = (unitEntityData.Descriptor.HasFact(BlueprintsDatabase.Outflank) && unitEntityData != evt.Initiator);
+                    flag = (unitEntityData.Descriptor.HasFact(DB.GetFeature("Outflank")) && unitEntityData != evt.Initiator);
                     if (flag)
                     {
                         break;

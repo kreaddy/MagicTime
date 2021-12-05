@@ -7,7 +7,6 @@ using Kingmaker.RuleSystem.Rules.Abilities;
 using Kingmaker.UnitLogic;
 using MagicTime.Utilities;
 using System.Linq;
-using static MagicTime.Utilities.BlueprintsDatabase;
 
 namespace MagicTime.ArcaneDiscoveries
 {
@@ -21,7 +20,7 @@ namespace MagicTime.ArcaneDiscoveries
                 "ADArcaneDiscoverySelection",
                 "Arcane Discovery",
                 "A wizard can learn an arcane discovery in place of a regular feat or wizard bonus feat.", null, true, FeatureGroup.WizardFeat);
-            ad_selection.CreateClassLevelRestriction(Wizard, 1);
+            ad_selection.CreateClassLevelRestriction(DB.GetClass("Wizard Class"), 1);
             ad_selection.CreateFeatureTags(FeatureTag.Magic);
             Helpers.AddNewWizardFeat(ad_selection);
         }
@@ -46,8 +45,8 @@ namespace MagicTime.ArcaneDiscoveries
                 "Having studied alongside alchemists, you’ve learned to use their methodologies to enhance your spellcraft.\n" +
                 "Benefit: Whenever you cast a spell that appears on both the wizard and alchemist spell lists, you treat your caster level as 1 " +
                 "higher than normal and the save DC of such spells increases by 1.",
-                null, TargetedBombAdm.Icon);
-            aa_feature.CreateClassLevelRestriction(Wizard, 5);
+                null, DB.GetAbility("Targeted Bomb Admixture").Icon);
+            aa_feature.CreateClassLevelRestriction(DB.GetClass("Wizard Class"), 5);
             aa_feature.CreateGenericComponent<Mechanics.AlchemicalAffinityLogic>();
             Main.AddNewDiscovery(aa_feature);
         }
@@ -64,7 +63,8 @@ namespace MagicTime.ArcaneDiscoveries.Mechanics
         public void OnEventAboutToTrigger(RuleCalculateAbilityParams evt)
         {
             if (Owner == null || evt.AbilityData == null) { return; }
-            if (evt.AbilityData.IsInSpellList(WizardList) && evt.AbilityData.IsInSpellList(AlchemistList))
+            if (evt.AbilityData.IsInSpellList(DB.GetSpellList("Wizard Spells")) &&
+                evt.AbilityData.IsInSpellList(DB.GetSpellList("Alchemist Spells")))
             {
                 evt.AddBonusCasterLevel(1);
                 evt.AddBonusDC(1);

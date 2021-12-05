@@ -5,7 +5,6 @@ using Kingmaker.Enums;
 using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.FactLogic;
 using MagicTime.Utilities;
-using static MagicTime.Utilities.BlueprintsDatabase;
 
 namespace MagicTime.ArcaneDiscoveries
 {
@@ -21,10 +20,10 @@ namespace MagicTime.ArcaneDiscoveries
                 "In your quest for self-perfection, you have discovered a way to further enhance yourself and others.\n" +
                 "Benefit: When a transmutation spell you cast grants an enhancement bonus to an ability score, that bonus increases by 2. " +
                 "At 20th level, the bonus increases by 4.",
-                null, PowerfulChange.Icon);
-            idealize_feature.CreateClassLevelRestriction(Wizard, 10);
-            idealize_feature.CreateFeatureRestrictionInv(SinMagicLust);
-            idealize_feature.CreateFeatureRestrictionInv(SinMagicPride);
+                null, DB.GetFeature("Powerful Change Feature").Icon);
+            idealize_feature.CreateClassLevelRestriction(DB.GetClass("Wizard Class"), 10);
+            idealize_feature.CreateFeatureRestrictionInv(DB.GetFeature("Sin Magic Lust"));
+            idealize_feature.CreateFeatureRestrictionInv(DB.GetFeature("Sin Magic Pride"));
             Main.AddNewDiscovery(idealize_feature);
         }
     }
@@ -41,7 +40,7 @@ namespace MagicTime.ArcaneDiscoveries
             if (__instance.Descriptor == ModifierDescriptor.Enhancement && __instance.Context.SourceAbility.IsSpell &&
                 __instance.Context.SpellSchool == SpellSchool.Transmutation)
             {
-                var wiz_lv = __instance.Owner.Progression.GetClassLevel(Wizard);
+                var wiz_lv = __instance.Owner.Progression.GetClassLevel(DB.GetClass("Wizard"));
                 var new_bonus = wiz_lv > 19 ? __instance.Value + 4 : __instance.Value + 2;
                 __instance.Owner.Stats.GetStat(__instance.Stat).RemoveModifiersFrom(__instance.Runtime);
                 __instance.Owner.Stats.GetStat(__instance.Stat).AddModifierUnique(new_bonus, __instance.Runtime, ModifierDescriptor.Enhancement);
