@@ -12,8 +12,9 @@ Mod for Pathfinder: Wrath of the Righteous focused on adding mechanical content,
 
 ## Content
 - Cleric archetype: Flagellant.
-- Arcane discoveries: Alchemical Affinity, Idealize, Forest Blessing, Opposition Research, Staff-Like Wand, Knowledge is Power.
-- Feat: Shrewd Tactician.
+- Oracle archetype: Warsighted.
+- Arcane discoveries: Alchemical Affinity, Idealize, Forest Blessing, Opposition Research, Staff-Like Wand, Knowledge is Power, Metamagic Insight.
+- Feats: Shrewd Tactician, Acadamae Graduate.
 - Magus arcana: Circle of Order.
 - Mythic feat: Warrior-Priest (Mythic).
 - Mythic ability: Mythic Poison.
