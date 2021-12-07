@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
 using Kingmaker.Blueprints.JsonSystem;
 using System.Linq;
+using Kingmaker.Blueprints.Classes;
+using Kingmaker.Blueprints;
 
 namespace MagicTime
 {
@@ -45,13 +47,13 @@ namespace MagicTime
                 if (Main.SettingsContainer.groups["mythic"].enabled)
                 {
                     if (MythicON("warrior_priest")) { Mythic.WarriorPriest.Create(); }
-                    if (MythicON("mythic_poison") && !no_hb) { Mythic.MythicPoisons.Create(); }
+                    if (MythicON("mythic_poison") && !no_hb && !WorldcrawlLoaded()) { Mythic.MythicPoisons.Create(); }
                 }
 
                 if (Main.SettingsContainer.groups["archetypes"].enabled)
                 {
                     if (ArchetypeON("flagellant") && !no_hb) { Archetypes.Flagellant.Create(); }
-                    if (ArchetypeON("warsighted") && !no_hb) { Archetypes.Warsighted.Create(); }
+                    if (ArchetypeON("warsighted")) { Archetypes.Warsighted.Create(); }
                 }
 
                 Resources.Cleanup();
@@ -82,5 +84,16 @@ namespace MagicTime
         {
             return Main.SettingsContainer.groups["mythic"].settings[id].enabled;
         }
+
+		private static bool WorldcrawlLoaded()
+		{
+            var ar = ResourcesLibrary.TryGetBlueprint<BlueprintCharacterClass>("3ae2ff4b51ad5bde3436ffac822611c1");
+			if (ar == null)
+            {
+                return false;
+            }
+            Main.Log("Mythic Poisons disabled because Worldcrawl is present.");
+            return true;
+		}
     }
 }
