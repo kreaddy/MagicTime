@@ -9,5 +9,6 @@
   "AssemblyName": "MagicTime.dll",
   "LoadAfter": ["Worldcrawl"],
   "HomePage": "https://github.com/Stari0n/MagicTime/releases",
+  "Repository": "https://raw.githubusercontent.com/Stari0n/MagicTime/master/Repository.json",
   "EntryMethod": "MagicTime.Main.Load"
 }
