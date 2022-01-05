@@ -25,6 +25,20 @@
         "enabled": true,
         "description": "An oracle who trades revelations for combat feats.",
         "homebrew": false
+      },
+      {
+        "id": "blood_arcanist",
+        "name": "Blood Arcanist",
+        "enabled": true,
+        "description": "An arcanist with fewer exploits but a full bloodline.",
+        "homebrew": false
+      },
+      {
+        "id": "pact_wizard",
+        "name": "Pact Wizard",
+        "enabled": true,
+        "description": "Wizard who trades bonus feats for a witch patron and eventually an oracle curse.",
+        "homebrew": false
       }
     ]
   },
@@ -103,6 +117,13 @@
         "name": "Acadamae Graduate",
         "enabled": true,
         "description": "Summoning spells only take a standard action to cast but have a chance to cause fatigue for a while.",
+        "homebrew": false
+      },
+      {
+        "id": "meta_intensified",
+        "name": "Intensified Spell",
+        "enabled": true,
+        "description": "Metamagic that raises maximum number of damage dices by 5.",
         "homebrew": false
       }
     ]

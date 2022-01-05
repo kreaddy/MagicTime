@@ -46,6 +46,11 @@ namespace MagicTime.Utilities
             return GetBP<BlueprintFeature>(id);
         }
 
+        public static BlueprintProgression GetProgression(string id)
+        {
+            return GetBP<BlueprintProgression>(id);
+        }
+
         public static BlueprintFeatureSelection GetSelection(string id)
         {
             return GetBP<BlueprintFeatureSelection>(id);

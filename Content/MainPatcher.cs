@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using Kingmaker.Blueprints.JsonSystem;
-using System.Linq;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints;
 
@@ -37,6 +36,7 @@ namespace MagicTime
                 {
                     if (FeatON("shrewd_tactician")) { Feats.ShrewdTactician.Create(); }
                     if (FeatON("acadamae")) { Feats.AcadamaeGraduate.Create(); }
+                    if (FeatON("meta_intensified")) { Feats.MetamagicIntensfied.Create(); }
                 }
 
                 if (Main.SettingsContainer.groups["magus_arcana"].enabled)
@@ -54,6 +54,8 @@ namespace MagicTime
                 {
                     if (ArchetypeON("flagellant") && !no_hb) { Archetypes.Flagellant.Create(); }
                     if (ArchetypeON("warsighted")) { Archetypes.Warsighted.Create(); }
+                    if (ArchetypeON("blood_arcanist")) { Archetypes.BloodArcanist.Create(); }
+                    if (ArchetypeON("pact_wizard")) { Archetypes.PactWizard.Create(); }
                 }
 
                 Resources.Cleanup();

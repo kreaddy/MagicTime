@@ -12,7 +12,8 @@ namespace MagicTime.ArcaneDiscoveries
 {
     internal static class MetamagicInsight
     {
-        private static BlueprintAbilityResource metamagic_resource;
+        public static bool Initialized;
+        public static BlueprintAbilityResource metamagic_resource;
         private static BlueprintBuff bolster_buff;
         private static BlueprintAbility bolster_ability;
         private static BlueprintBuff empower_buff;
@@ -29,7 +30,7 @@ namespace MagicTime.ArcaneDiscoveries
         private static BlueprintAbility reach_ability;
         private static BlueprintBuff selective_buff;
         private static BlueprintAbility selective_ability;
-        private static BlueprintAbility metamagic_ability;
+        public static BlueprintAbility metamagic_ability;
         private static BlueprintFeature metamagic_feature;
 
         public static void Create()
@@ -265,6 +266,8 @@ namespace MagicTime.ArcaneDiscoveries
             metamagic_feature.CreateAddAbilityResource(metamagic_resource, 2);
             metamagic_feature.CreateClassLevelRestriction(DB.GetClass("Wizard Class"), 10);
             Main.AddNewDiscovery(metamagic_feature);
+
+            Initialized = true;
         }
     }
 }

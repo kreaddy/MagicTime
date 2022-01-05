@@ -25,6 +25,8 @@ namespace MagicTime.Feats
                 "fatigued for 1 minute.", "f_graduate", null, false);
             graduate_feature.CreateFeatureTags(Kingmaker.Blueprints.Classes.Selection.FeatureTag.Magic);
             graduate_feature.CreateFeatureRestrictionInv(DB.GetFeature("Opposition School Conjuration"));
+            graduate_feature.RestrictByStat(StatType.Intelligence, 3);
+            graduate_feature.CreateRecommendationRequiresSpellbook();
             graduate_feature.CreateGenericComponent<Mechanics.AcadamaeGraduateFatigue>();
             Helpers.AddNewWizardFeat(graduate_feature);
         }

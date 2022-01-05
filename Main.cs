@@ -18,6 +18,9 @@ namespace MagicTime
 
         public static Settings SettingsContainer = new Settings();
 
+        // Annoying workarounds for static constructors messing up harmony.
+        public static bool static_constructor_uiutilitytexts_safe = false;
+
         public static void Log(string msg)
         {
             Mod.Logger.Log(msg);
@@ -36,6 +39,7 @@ namespace MagicTime
             modEntry.OnGUI = OnGUI;
             modEntry.OnSaveGUI = OnSaveGUI;
             var harmony = new Harmony(modEntry.Info.Id);
+            Starion.BPExtender.EXData.Initialize();
             Resources.Initializer();
             harmony.PatchAll(Assembly.GetExecutingAssembly());
             return true;
