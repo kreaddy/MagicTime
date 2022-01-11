@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 using UnityModManagerNet;
 
 namespace MagicTime
@@ -33,6 +34,7 @@ namespace MagicTime
 
         private static bool Load(UnityModManager.ModEntry modEntry)
         {
+            Debug.unityLogger.logEnabled = false;
             Mod = modEntry;
             SettingsContainer.Load();
             modEntry.OnToggle = OnToggle;

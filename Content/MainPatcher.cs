@@ -37,6 +37,7 @@ namespace MagicTime
                     if (FeatON("shrewd_tactician")) { Feats.ShrewdTactician.Create(); }
                     if (FeatON("acadamae")) { Feats.AcadamaeGraduate.Create(); }
                     if (FeatON("meta_intensified")) { Feats.MetamagicIntensfied.Create(); }
+                    if (FeatON("meta_dazing")) { Feats.MetamagicDazing.Create(); }
                 }
 
                 if (Main.SettingsContainer.groups["magus_arcana"].enabled)
@@ -48,6 +49,7 @@ namespace MagicTime
                 {
                     if (MythicON("warrior_priest")) { Mythic.WarriorPriest.Create(); }
                     if (MythicON("mythic_poison") && !no_hb && !WorldcrawlLoaded()) { Mythic.MythicPoisons.Create(); }
+                    if (MythicON("material_freedom") && !no_hb) { Mythic.MaterialFreedom.Create(); }
                 }
 
                 if (Main.SettingsContainer.groups["archetypes"].enabled)

@@ -1,15 +1,15 @@
-﻿using Kingmaker.Blueprints;
+﻿using HarmonyLib;
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Facts;
 using Kingmaker.Blueprints.JsonSystem;
-using Kingmaker.EntitySystem;
 using Kingmaker.PubSubSystem;
 using Kingmaker.RuleSystem.Rules;
 using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
-using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -58,6 +58,13 @@ namespace Starion.BPExtender.UnitFact
                 }
             }
             __instance.OnEnable();
+        }
+
+        internal static void CreateComponent<T>(this BlueprintUnitFact __instance, Action<T> init = null) where T : BlueprintComponent, new()
+        {
+            var comp = new T();
+            init?.Invoke(comp);
+            __instance.CreateComponents(comp);
         }
 
         /// <summary>
@@ -110,7 +117,7 @@ namespace Starion.BPExtender.UnitFact
         }
 
         public void OnEventDidTrigger(RuleApplyMetamagic evt)
-        { 
+        {
         }
     }
 

@@ -2,6 +2,7 @@
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Selection;
+using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.UnitLogic.FactLogic;
 using MagicTime.Utilities;
 using System.Collections.Generic;
@@ -79,6 +80,42 @@ namespace MagicTime.Archetypes
             MakeClassAndArchetypeRef(arcane);
             RemoveSpells(arcane);
             bloodlines.Add(arcane.ToReference<BlueprintFeatureReference>());
+
+            // Fix New Arcana
+            var newArcanaSorc = DB.GetBP<BlueprintParametrizedFeature>("New Arcana Sorcerer");
+            var newArcanaArcanist = Helpers.CreateBlueprint<BlueprintParametrizedFeature>("BloodArcanistNewArcana", bp =>
+            {
+                bp.m_DisplayName = newArcanaSorc.m_DisplayName;
+                bp.m_Description = newArcanaSorc.m_Description;
+                bp.m_Icon = newArcanaSorc.Icon;
+                bp.IsClassFeature = true;
+                bp.ParameterType = FeatureParameterType.LearnSpell;
+                bp.BlueprintParameterVariants = newArcanaSorc.BlueprintParameterVariants;
+                bp.m_SpellcasterClass = DB.GetClass("Arcanist Class").ToReference<BlueprintCharacterClassReference>();
+                bp.m_SpellList = DB.GetSpellList("Wizard Spells").ToReference<BlueprintSpellListReference>();
+                bp.CreateGenericComponent<PrerequisiteNoClassLevel>(c =>
+                {
+                    c.m_CharacterClass = DB.GetClass("Sorcerer Class").ToReference<BlueprintCharacterClassReference>();
+                });
+                bp.CreateGenericComponent<PrerequisiteNoArchetype>(c =>
+                {
+                    c.m_CharacterClass = DB.GetClass("Magus Class").ToReference<BlueprintCharacterClassReference>();
+                    c.m_Archetype = DB.GetArchetype("Magus Eldritch Scion").ToReference<BlueprintArchetypeReference>();
+                });
+                bp.CreateGenericComponent<LearnSpellParametrized>(c =>
+                {
+                    c.m_SpellcasterClass = DB.GetClass("Arcanist Class").ToReference<BlueprintCharacterClassReference>();
+                    c.m_SpellList = DB.GetSpellList("Wizard Spells").ToReference<BlueprintSpellListReference>();
+                });
+            });
+            newArcanaSorc.CreateGenericComponent<PrerequisiteNoArchetype>(c =>
+            {
+                c.m_CharacterClass = DB.GetClass("Arcanist Class").ToReference<BlueprintCharacterClassReference>();
+                c.m_Archetype = blood_arcanist_archetype.ToReference<BlueprintArchetypeReference>();
+            });
+            var list = DB.GetSelection("New Arcana Selection").m_AllFeatures.ToList();
+            list.Add(newArcanaArcanist.ToReference<BlueprintFeatureReference>());
+            DB.GetSelection("New Arcana Selection").m_AllFeatures = list.ToArray();
 
             var celestial = Helpers.Clone(DB.GetProgression("Sorc Blood Celestial"), "BloodArcanistCelestialProgression");
             MakeClassAndArchetypeRef(celestial);

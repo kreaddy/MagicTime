@@ -1,5 +1,11 @@
 ﻿using HarmonyLib;
+using Kingmaker.Blueprints;
+using Kingmaker.Blueprints.Classes.Spells;
+using Kingmaker.EntitySystem.Stats;
+using Kingmaker.Designers;
+using Kingmaker.RuleSystem;
 using Kingmaker.RuleSystem.Rules;
+using Kingmaker.RuleSystem.Rules.Damage;
 using Kingmaker.UI.Common;
 using Kingmaker.UI.MVVM._VM.ServiceWindows.Spellbook.Metamagic;
 using Kingmaker.UnitLogic;
@@ -7,11 +13,13 @@ using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics;
+using Kingmaker.UnitLogic.Mechanics.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
+using Kingmaker.Utility;
 using MagicTime.Utilities;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Starion
 {
@@ -20,13 +28,9 @@ namespace Starion
         [Flags]
         public enum ExtraMetamagic
         {
-            Intensified = 2048
+            Intensified = 2048,
+            Dazing = 4096
         }
-
-        public static Dictionary<ExtraMetamagic, int> MetamagicDefaultCost = new Dictionary<ExtraMetamagic, int>()
-        {
-            { ExtraMetamagic.Intensified, 1 }
-        };
 
         public static bool IsMetamagicAvailableForThisSpell(ExtraMetamagic metamagic, BlueprintAbility spell)
         {
@@ -34,6 +38,9 @@ namespace Starion
             {
                 case ExtraMetamagic.Intensified:
                     return spell.AvailableMetamagic.HasMetamagic(Metamagic.Bolstered);
+
+                case ExtraMetamagic.Dazing:
+                    return spell.AvailableMetamagic.HasMetamagic(Metamagic.Empower) && spell.CanTargetEnemies;
 
                 default:
                     return false;
@@ -44,6 +51,40 @@ namespace Starion
         {
             var value = crc.ApplyProgression(crc.GetBaseValue(context));
             return Math.Min(value, crc.m_Max + 5);
+        }
+
+        public static void ApplyDazzlingMetamagic(this RuleDealDamage __instance)
+        {
+            if (__instance.Result > 0 && !__instance.HalfBecauseSavingThrow)
+            {
+                var st_type = __instance.Reason.Context.SavingThrow?.Type;
+                if (st_type == SavingThrowType.Unknown || st_type == null)
+                {
+                    var dc = __instance.Reason.Context.Params.DC;
+                    st_type = SavingThrowType.Will;
+                    var saving_throw = new RuleSavingThrow(__instance.Target, (SavingThrowType)st_type, dc);
+                    Rulebook.Trigger(saving_throw);
+                    if (saving_throw.IsPassed)
+                    {
+                        return;
+                    }
+                }
+                var rounds = new Rounds(__instance.Reason.Ability.SpellLevelInSpellbook.Value);
+                GameHelper.ApplyBuff(__instance.Target, DB.GetBuff("Daze Buff"), rounds);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(RuleDealDamage), "OnTrigger")]
+    internal class MetamagicExtender_RuleDealDamage
+    {
+        [HarmonyPostfix]
+        private static void ME_OnTrigger(RuleDealDamage __instance)
+        {
+            if (__instance.Reason.Ability?.HasMetamagic((Metamagic)MetamagicExtender.ExtraMetamagic.Dazing) == true)
+            {
+                __instance.ApplyDazzlingMetamagic();
+            }
         }
     }
 
@@ -56,6 +97,11 @@ namespace Starion
             var lv_adjustment = 0;
             if (__instance.AppliedMetamagics.Contains((Metamagic)MetamagicExtender.ExtraMetamagic.Intensified) &&
                 __instance.Initiator.HasFact(BPExtender.Mechanics.FavoriteMetamagicIntensified))
+            {
+                lv_adjustment++;
+            }
+            if (__instance.AppliedMetamagics.Contains((Metamagic)MetamagicExtender.ExtraMetamagic.Dazing) &&
+                __instance.Initiator.HasFact(BPExtender.Mechanics.FavoriteMetamagicDazing))
             {
                 lv_adjustment++;
             }
@@ -148,6 +194,10 @@ namespace Starion
                 case MetamagicExtender.ExtraMetamagic.Intensified:
                     __result = 1;
                     break;
+
+                case MetamagicExtender.ExtraMetamagic.Dazing:
+                    __result = 3;
+                    break;
             }
         }
 
@@ -159,6 +209,10 @@ namespace Starion
             {
                 case MetamagicExtender.ExtraMetamagic.Intensified:
                     __result = AssetLoader.LoadInternal("Icons", "m_intensified");
+                    break;
+
+                case MetamagicExtender.ExtraMetamagic.Dazing:
+                    __result = AssetLoader.LoadInternal("Icons", "m_dazing");
                     break;
             }
         }
@@ -174,6 +228,13 @@ namespace Starion
             if ((MetamagicExtender.ExtraMetamagic)metamagic == MetamagicExtender.ExtraMetamagic.Intensified)
             {
                 if (__instance.m_Unit.Value.HasFact(BPExtender.Mechanics.FavoriteMetamagicIntensified))
+                {
+                    __result--;
+                }
+            }
+            if ((MetamagicExtender.ExtraMetamagic)metamagic == MetamagicExtender.ExtraMetamagic.Dazing)
+            {
+                if (__instance.m_Unit.Value.HasFact(BPExtender.Mechanics.FavoriteMetamagicDazing))
                 {
                     __result--;
                 }
@@ -222,6 +283,10 @@ namespace Starion
             if ((mask & (Metamagic)MetamagicExtender.ExtraMetamagic.Intensified) != 0)
             {
                 to_append += "Intensified, ";
+            }
+            if ((mask & (Metamagic)MetamagicExtender.ExtraMetamagic.Dazing) != 0)
+            {
+                to_append += "Dazing, ";
             }
             if (to_append.Length > 2)
             {

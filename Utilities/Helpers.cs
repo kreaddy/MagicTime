@@ -239,10 +239,12 @@ namespace MagicTime.Utilities
             var selection = DB.GetSelection("Mythic Ability Selection");
             var list = selection.m_AllFeatures.ToList();
             list.Add(fact.ToReference<BlueprintFeatureReference>());
+            list.OrderBy(f => f.Get().m_DisplayName);
             selection.m_AllFeatures = list.ToArray();
             selection = DB.GetSelection("Extra Mythic Ability Selection");
             list = selection.m_AllFeatures.ToList();
             list.Add(fact.ToReference<BlueprintFeatureReference>());
+            list.OrderBy(f => f.Get().m_DisplayName);
             selection.m_AllFeatures = list.ToArray();
         }
 

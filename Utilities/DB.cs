@@ -2,6 +2,7 @@
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Blueprints.Classes.Selection;
+using Kingmaker.Blueprints.Items;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Newtonsoft.Json;
@@ -44,6 +45,11 @@ namespace MagicTime.Utilities
         public static BlueprintFeature GetFeature(string id)
         {
             return GetBP<BlueprintFeature>(id);
+        }
+
+        public static BlueprintItem GetItem(string id)
+        {
+            return GetBP<BlueprintItem>(id);
         }
 
         public static BlueprintProgression GetProgression(string id)

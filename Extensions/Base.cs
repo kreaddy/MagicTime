@@ -6,6 +6,7 @@ namespace Starion.BPExtender
 {
     public static class Mechanics
     {
+        public static BlueprintFeature FavoriteMetamagicDazing;
         public static BlueprintFeature FavoriteMetamagicIntensified;
     }
 

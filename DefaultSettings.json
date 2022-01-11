@@ -125,6 +125,13 @@
         "enabled": true,
         "description": "Metamagic that raises maximum number of damage dices by 5.",
         "homebrew": false
+      },
+      {
+        "id": "meta_dazing",
+        "name": "Dazing Spell",
+        "enabled": true,
+        "description": "Metamagic that rmakes your damaging spells daze their targets.",
+        "homebrew": false
       }
     ]
   },
@@ -161,6 +168,13 @@
         "name": "Mythic Poison",
         "enabled": true,
         "description": "Ignore poison immunity of living creatures.",
+        "homebrew": true
+      },
+      {
+        "id": "material_freedom",
+        "name": "Material Freedom",
+        "enabled": true,
+        "description": "Ignore specific material component requirements.",
         "homebrew": true
       }
     ]
