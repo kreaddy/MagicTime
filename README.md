@@ -16,10 +16,10 @@ Mod for Pathfinder: Wrath of the Righteous focused on adding mechanical content,
 - Arcanist archetype: Blood Arcanist.
 - Wizard archetype: Pact Wizard.
 - Arcane discoveries: Alchemical Affinity, Idealize, Forest Blessing, Opposition Research, Staff-Like Wand, Knowledge is Power, Metamagic Insight.
-- Feats: Shrewd Tactician, Acadamae Graduate, Intensified Spell.
+- Feats: Shrewd Tactician, Acadamae Graduate, Intensified Spell, Dazing Spell.
 - Magus arcana: Circle of Order.
 - Mythic feat: Warrior-Priest (Mythic).
-- Mythic ability: Mythic Poison, Favorite Metamagic - Intensified.
+- Mythic ability: Mythic Poison, Favorite Metamagic - Intensified, Favorite Metamagic - Dazing, Material Freedom.
 
 Everything can be disabled in the mod manager UI (press F10). Changes will necessitate a restart.
 
