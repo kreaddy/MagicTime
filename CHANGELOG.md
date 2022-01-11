@@ -2,7 +2,8 @@
 - Added the Blood Arcanist and Pact Wizard archetypes.
 - Added the Intensified Spell metamagic feat.
 - Added the Favorite Metamagic - Intensified mythic ability.
-- Update Metamagic Insight to take intensified spells into consideration.
+- Updated Metamagic Insight to take intensified spells into consideration.
+- (arkive) Fixed repository.
 
 ###  Version 1.3.3
 - Mythic Poisons now disables itself if Worldcrawl is loaded to avoid a crash (WC has its own way to deal with poison immunity anyway).
