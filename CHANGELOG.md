@@ -1,3 +1,10 @@
+###  Version 1.3.9
+- Fixed Blood Arcanist with the Arcane bloodline being stuck at level 8.
+- Added the Dazing Spell metamagic feat.
+- Added the Favorite Metamagic - Dazing mythic ability.
+- Added the Material Freedom mythic ability.
+- Updated Metamagic Insight to take dazing spells into consideration.
+
 ###  Version 1.3.7
 - Added the Blood Arcanist and Pact Wizard archetypes.
 - Added the Intensified Spell metamagic feat.
