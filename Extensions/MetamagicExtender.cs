@@ -28,8 +28,8 @@ namespace Starion
         [Flags]
         public enum ExtraMetamagic
         {
-            Intensified = 2048,
-            Dazing = 4096
+            Intensified = 4096,
+            Dazing = 8192
         }
 
         public static bool IsMetamagicAvailableForThisSpell(ExtraMetamagic metamagic, BlueprintAbility spell)
