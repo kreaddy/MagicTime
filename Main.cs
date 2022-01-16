@@ -34,7 +34,6 @@ namespace MagicTime
 
         private static bool Load(UnityModManager.ModEntry modEntry)
         {
-            Debug.unityLogger.logEnabled = false;
             Mod = modEntry;
             SettingsContainer.Load();
             modEntry.OnToggle = OnToggle;

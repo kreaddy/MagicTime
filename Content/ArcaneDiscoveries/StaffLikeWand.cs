@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using JetBrains.Annotations;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Items.Equipment;
 using Kingmaker.Items;
@@ -31,21 +30,26 @@ namespace MagicTime.ArcaneDiscoveries
     [HarmonyPatch(typeof(AbilityData), "GetParamsFromItem")]
     internal class AbilityData_GetParamsFromItem_StaffLikeWandPatch
     {
-        private static AbilityParams Postfix(AbilityParams itemParams, AbilityData __instance, [NotNull] ItemEntity itemEntity)
+        private static void Postfix(ref AbilityParams __result, AbilityData __instance, ItemEntity itemEntity)
         {
-            if (itemEntity.Blueprint != null && (itemEntity.Blueprint as BlueprintItemEquipmentUsable).Type != UsableItemType.Wand)
+            if (__result == null || itemEntity == null || itemEntity.Blueprint == null || __instance.Caster == null ||
+                (itemEntity.Blueprint is BlueprintItemEquipmentUsable) == false)
             {
-                return itemParams;
+                return;
             }
+            if ((itemEntity.Blueprint as BlueprintItemEquipmentUsable).Type != UsableItemType.Wand)
+            {
+                return;
+            }
+            MagicTime.Main.Log("not null");
             if (__instance.Caster.HasFact(StaffLikeWand.staff_wand))
             {
-                if (__instance.Caster.GetSpellbook(DB.GetClass("Wizard Class")).CasterLevel > itemParams.CasterLevel)
+                if (__instance.Caster.GetSpellbook(DB.GetClass("Wizard Class")).CasterLevel > __result.CasterLevel)
                 {
-                    itemParams.CasterLevel = __instance.Caster.GetSpellbook(DB.GetClass("Wizard Class")).CasterLevel;
+                    __result.CasterLevel = __instance.Caster.GetSpellbook(DB.GetClass("Wizard Class")).CasterLevel;
                 }
-                itemParams.DC = __instance.Caster.Stats.Intelligence.Bonus + itemEntity.GetSpellLevel() + 10;
+                __result.DC = __instance.Caster.Stats.Intelligence.Bonus + itemEntity.GetSpellLevel() + 10;
             }
-            return itemParams;
         }
     }
 }
