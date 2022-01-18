@@ -36,6 +36,12 @@ namespace MagicTime.Archetypes
         private static BlueprintFeature double_rolls_feature;
         private static BlueprintFeature lv15feature;
         public static BlueprintFeature auto_success;
+        public static string[] wizardSpellbooks = new string[]
+        {
+            "5a38c9ac8607890409fcb8f6342da6f4", "5785f40e7b1bfc94ea078e7156aa9711", "97cd3941ce333ce46ae09436287ed699",
+            "74b87962a97d56c4583979216631eb4c", "05b105ddee654db4fb1547ba48ffa160", "9e4b96d7b02f8c8498964aeee6eaef9b",
+            "cbc30bcc7b8adec48a53a6540f5596ae", "58b15cc36ceda8942a7a29aafa755452"
+        };
 
         public static void Create()
         {
@@ -227,7 +233,8 @@ namespace MagicTime.Archetypes
             if (spell == null) { return; }
             var spellLevel = __instance.GetSpellLevel(spell);
             if (spellLevel <= 0) { return; }
-            if (__instance.Blueprint == DB.GetSpellbook("Wizard Spellbook") && __instance.Owner.HasFact(PactWizard.spontaneous_conversion))
+            if (PactWizard.wizardSpellbooks.Contains(__instance.Blueprint.AssetGuid.ToString()) &&
+                __instance.Owner.HasFact(PactWizard.spontaneous_conversion))
             {
                 if (spell.SpellSlot.Type != SpellSlotType.Common) { return; }
                 var patron = (BlueprintProgression)__instance.Owner.Progression.Selections[PactWizard.patron_selection].GetSelections(1).First();
