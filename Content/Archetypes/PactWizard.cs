@@ -40,7 +40,7 @@ namespace MagicTime.Archetypes
         {
             "5a38c9ac8607890409fcb8f6342da6f4", "5785f40e7b1bfc94ea078e7156aa9711", "97cd3941ce333ce46ae09436287ed699",
             "74b87962a97d56c4583979216631eb4c", "05b105ddee654db4fb1547ba48ffa160", "9e4b96d7b02f8c8498964aeee6eaef9b",
-            "cbc30bcc7b8adec48a53a6540f5596ae", "58b15cc36ceda8942a7a29aafa755452"
+            "cbc30bcc7b8adec48a53a6540f5596ae", "58b15cc36ceda8942a7a29aafa755452", "d09794fb6f93e4a40929a965b434070d"
         };
 
         public static void Create()
