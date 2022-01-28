@@ -40,7 +40,7 @@ namespace MagicTime.ArcaneDiscoveries
             if (__instance.Descriptor == ModifierDescriptor.Enhancement && __instance.Context.SourceAbility.IsSpell &&
                 __instance.Context.SpellSchool == SpellSchool.Transmutation)
             {
-                var wiz_lv = __instance.Owner.Progression.GetClassLevel(DB.GetClass("Wizard"));
+                var wiz_lv = __instance.Owner.Progression.GetClassLevel(DB.GetClass("Wizard Class"));
                 var new_bonus = wiz_lv > 19 ? __instance.Value + 4 : __instance.Value + 2;
                 __instance.Owner.Stats.GetStat(__instance.Stat).RemoveModifiersFrom(__instance.Runtime);
                 __instance.Owner.Stats.GetStat(__instance.Stat).AddModifierUnique(new_bonus, __instance.Runtime, ModifierDescriptor.Enhancement);
