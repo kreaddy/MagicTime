@@ -61,7 +61,7 @@ namespace MagicTime.Feats.Mechanics
             if (evt.Spell != null && !evt.Spell.IsSpontaneous && evt.Success && evt.Context.SpellSchool == SpellSchool.Conjuration &&
                 evt.Context.SpellDescriptor.HasFlag(SpellDescriptor.Summoning))
             {
-                var result = GameHelper.CheckSkillResult(evt.Initiator, StatType.SaveFortitude, 15 + evt.Spell.SpellLevel);
+                var result = GameHelper.CheckStatResult(evt.Initiator, StatType.SaveFortitude, 15 + evt.Spell.SpellLevel);
                 if (!result)
                 {
                     evt.Initiator.AddBuff(DB.GetBuff("Fatigued Buff"), evt.Initiator, System.TimeSpan.FromMinutes(1));

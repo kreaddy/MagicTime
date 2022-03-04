@@ -490,15 +490,15 @@ namespace MagicTime.Utilities
             {
                 return localized;
             }
-            var strings = LocalizationManager.CurrentPack.Strings;
-            string oldValue;
-            if (strings.TryGetValue(key, out oldValue) && value != oldValue)
+            var strings = LocalizationManager.CurrentPack.m_Strings;
+            LocalizationPack.StringEntry oldValue;
+            if (strings.TryGetValue(key, out oldValue) && value != oldValue.Text)
             {
 #if DEBUG
                 Main.Log($"Info: duplicate localized string `{key}`, different text.");
 #endif
             }
-            strings[key] = value;
+            strings[key] = new LocalizationPack.StringEntry() { Text = value };
             localized = new LocalizedString
             {
                 m_Key = key
