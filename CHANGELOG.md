@@ -1,3 +1,7 @@
+###  Version 1.4.0
+- Compatibility update with Wrath version 1.2 and the DLC Inevitable Excess.
+- Fixed a couple issues with the multiple archetype mod.
+
 ###  Version 1.3.9
 - Fixed Blood Arcanist with the Arcane bloodline being stuck at level 8.
 - Added the Dazing Spell metamagic feat.
