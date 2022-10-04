@@ -1,3 +1,5 @@
+# THIS MOD IS DEPRECATED, USE ITS SUCCESSOR INSTEAD: [https://github.com/kreaddy/MysticalMayhem](https://github.com/kreaddy/MysticalMayhem)
+
 # Magic Time!
 Mod for Pathfinder: Wrath of the Righteous focused on adding mechanical content, mostly for spellcasting characters.
 
